@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Nothing+You+Could+Do&display=swap');
+.signup {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("https://www.thecoachkshow.com/wp-content/uploads/2018/12/college-cooking-dorm-appliances-768x507.jpg");
+  background-size: cover;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  filter: blur(1px);
+  overflow: hidden;
+  text-align: center;
+}
+
+.signup h1 {
+  color: blanchedalmond;
+  font-family: 'Nothing You Could Do', cursive;
+  margin: 4rem;
+}
+
+.signup-form {
+  display: inline-block;
+  filter: blur(0.5px);
+  border-radius: 0.5rem;
+  border-style: none;
+  color: blanchedalmond;
+}
+
+.signup-input, .password-input {
+  width: 20vw;
+  height: 100%;
+  background-color: #CF9A6C;
+  box-shadow: 0 0 15px 20px #CF9A6C;
+  font-size: 2rem;
+  font-family: "Homemade Apple", cursive;
+  font-weight: bold;
+  color: blanchedalmond;
+  border-style: none;
+  text-indent: 1.5rem;
+  outline: none;
+  border-style: none;
+  border-radius: 2rem;
+}
+
+.signup-button {
+  background-color: #CF9A6C;
+  box-shadow: 0 4px 15px 20px #CF9A6C;
+  padding: 0.5rem 1rem;
+  font-size: 3rem;
+  font-family: "Reenie Beanie", cursive;
+  font-weight: bold;
+  color: blanchedalmond;
+  outline: none;
+  border-style: none;
+  border-radius: 2rem;
+}

@@ -1,0 +1,361 @@
+@import url("https://fonts.googleapis.com/css?family=Homemade+Apple|Reenie+Beanie|Rock+Salt|Schoolbell&display=swap");
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-image: url("https://st2.depositphotos.com/3221375/9084/i/950/depositphotos_90845246-stock-photo-rough-jute-fabric-natural-texture.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7rem;
+  background-image: url("https://cdn.pixabay.com/photo/2016/11/18/18/52/bottles-1836389_1280.jpg");
+  width: 100%;
+  height: 13vw;
+  object-fit: cover;
+  background-size: cover;
+  background-position: 50% 80%;
+  background-repeat: no-repeat;
+  background-color: #555;
+  box-shadow: 0 0 20px 20px #555;
+  filter: blur(1px);
+}
+
+header button {
+  background-color: antiquewhite;
+  padding: 1rem;
+  font-family: "Homemade Apple", cursive;
+  font-size: 2rem;
+  border-radius: 20%;
+  filter: blur(0.5px);
+  color: saddlebrown;
+  cursor: pointer;
+  border-style: none;
+  box-shadow: 0 0 20px 20px whitesmoke;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  /* margin: 2rem; */
+  display: grid;
+  justify-items: center;
+  overflow-y: scroll;
+  position: absolute;
+}
+
+/* Ingredient Search Style */
+
+.ingredients {
+  text-align: center;
+}
+
+form {
+  text-align: center;
+}
+
+.ingredient-search {
+  width: 66.7vw;
+  height: 4rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  background-color: blanchedalmond;
+  outline: none;
+  border-style: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 20px 10px bisque;
+  font-family: "Homemade Apple", cursive;
+  box-sizing: border-box;
+  text-indent: 1.5rem;
+}
+
+*:focus {
+  outline: none;
+}
+
+.add {
+  background-color: chocolate;
+  padding: 0 1rem;
+  height: 4.1rem;
+  border-style: none;
+  border-radius: 0.5rem;
+  font-family: "Reenie Beanie", cursive;
+  font-weight: bold;
+  font-size: 2rem;
+  box-shadow: inset 0 0 10px 8px sienna;
+}
+
+/* Ingredient Button Styles */
+
+.ingredient-box {
+  margin: 1rem;
+  border: 3px dotted BURLYWOOD;
+  padding: 8px 8px 8px 8px;
+  background-color: CORNSILK;
+  display: inline-block;
+}
+
+.ingredient-button {
+  margin: 1rem;
+  padding: 0.5rem;
+  display: inline-flex;
+  border-style: none;
+  border-radius: 33%;
+  background-color: SANDYBROWN;
+  font-family: "Schoolbell", cursive;
+  font-size: 1.3rem;
+}
+
+.ingredient-box .ingredient-button:hover {
+  background-color: antiquewhite;
+  background-image: url("../../Recycle_bin-512.png");
+  background-size: cover;
+  background-position: center;
+  width: 45px;
+  height: auto;
+  color: transparent;
+  cursor: pointer;
+}
+
+.ingredient-box a {
+  text-decoration: none;
+  color: maroon;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: "Homemade Apple", cursive;
+}
+
+.search {
+  margin: auto;
+  margin-left: 2rem;
+  margin-right: 0.8rem;
+  padding: 8px 8px 8px 8px;
+  background-color: bisque;
+  border: 1px solid tan;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pulse {
+  animation-name: pulse_animation;
+  animation-duration: 4000ms;
+  transform-origin: 70% 70%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes pulse_animation {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.08);
+  }
+  50% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Recipe Results Styling */
+
+.recipe-results-container {
+  text-align: center;
+  cursor: pointer;
+}
+
+.no-results {
+  margin: 2rem auto;
+  color: dimgray;
+  font-family: "Schoolbell", cursive;
+  font-size: 4rem;
+}
+
+.recipe-results {
+  display: block;
+  text-align: center;
+  width: 72vw;
+  background-color: wheat;
+  margin: 2rem;
+  padding: 1.5rem;
+  border-radius: 10%;
+  box-shadow: 0 40px 50px rgba(0, 0, 0, 0.25);
+  perspective: 1000px;
+  text-align: center;
+  transition: transform 0.67s;
+  transform-style: preserve-3d;
+}
+
+.recipe-results:hover {
+  transform: rotateY(30deg);
+}
+
+.recipe-results h1 {
+  font-family: "Rock Salt", cursive;
+  color: rosybrown;
+}
+
+.recipe-results h2 {
+  font-family: "Schoolbell", cursive;
+  color: Tomato;
+  text-align: center;
+}
+
+.recipe-results img {
+  margin: 0 auto;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 20rem;
+  height: 20rem;
+  border: 2rem solid BurlyWood;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px bisque, 0 0 0 15px beige;
+}
+
+/* SideBar Styling */
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: whitesmoke;
+  background-image: url("http://i.stack.imgur.com/kb0Zm.jpg");
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.sidebar .closebtn {
+  width: 100%;
+}
+
+.recipe-details img {
+  width: 100%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.recipe-details h1, .recipe-details h3 {
+  padding: 0.25rem;
+  text-decoration: none;
+  text-align: center;
+  font-family: "Rock Salt", cursive;
+  color: darkslategray;
+  display: block;
+}
+
+.recipe-details h1 {
+  margin-top: 4rem;
+  font-size: 2.43rem;
+}
+
+.recipe-details h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+/* Sidebar ingredient images Styling */
+
+.recipe-ingredient-image {
+  margin: 1rem;
+  text-align: center;
+}
+
+.recipe-ingredient-image img {
+  display: inline-block;
+  margin: 1rem 0.75rem;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border-radius: 25%;
+}
+
+/* Sidebar Ingredient List Styling */
+
+.ingredient-list {
+  text-align: center;
+  font-family: "Schoolbell", cursive;
+  color: dimgray;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.ingredient-list button {
+  display: inline-block;
+  margin: 4px 2px;
+  padding: 10px 20px;
+  background-color: moccasin;
+  font-family: "Schoolbell", cursive;
+  font-size: 1.2rem;
+  color: darkslategrey;
+  text-align: center;
+  text-decoration: none;
+  border: 5px solid #ddd;
+  border-radius: 16px;
+  cursor: auto;
+}
+
+.ingredient-list .missing-ingredient {
+  color: tomato;
+}
+
+.ingredient-list .missing-ingredient:hover {
+  background-image: url("https://previews.123rf.com/images/aquir/aquir1409/aquir140900882/32038501-missing-red-grungy-stamp-on-white-background.jpg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: transparent;
+  transition: 0.33s;
+}
+
+/* Sidebar Instruction Steps Styling */
+
+.instruction-steps {
+  margin: 1rem 0.5rem;
+  padding: 0 0.5rem;
+  text-align: left;
+  font-size: 2.5rem;
+  letter-spacing: 3px;
+  font-weight: bold;
+  font-family: "Reenie Beanie", cursive;
+  color: #818181;
+  display: block;
+  border-bottom-style: groove;
+}
+
+.no-instructions {
+  text-align: center;
+  margin-top: 2rem;
+  color: dimgray;
+  font-family: "Schoolbell", cursive;
+  font-size: 4rem;
+}
