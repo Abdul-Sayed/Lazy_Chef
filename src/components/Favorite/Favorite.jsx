@@ -229,6 +229,9 @@ class Favorite extends Component {
       <React.Fragment>
         <main className="main">
           <header>
+            <button onClick={() => this.props.history.push("/home")}>
+              Go Back
+            </button>
             <button onClick={this.handleLogout}>Log Out</button>
           </header>
 
