@@ -17,6 +17,10 @@
   margin: 4rem;
 }
 
+.signup span {
+  cursor: pointer;
+}
+
 .signup-form {
   display: inline-block;
   filter: blur(0.5px);
@@ -25,25 +29,25 @@
   color: blanchedalmond;
 }
 
-.signup-input, .password-input {
+.signup-input, .signup-password-input {
   width: 20vw;
   height: 100%;
   background-color: #CF9A6C;
-  box-shadow: 0 0 15px 20px #CF9A6C;
+  box-shadow: 0 0 13px 21px #CF9A6C;
   font-size: 2rem;
   font-family: "Homemade Apple", cursive;
   font-weight: bold;
   color: blanchedalmond;
   border-style: none;
-  text-indent: 1.5rem;
+  text-indent: 2rem;
   outline: none;
   border-style: none;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
 }
 
 .signup-button {
   background-color: #CF9A6C;
-  box-shadow: 0 4px 15px 20px #CF9A6C;
+  box-shadow: 0 4px 13px 21px #CF9A6C;
   padding: 0.5rem 1rem;
   font-size: 3rem;
   font-family: "Reenie Beanie", cursive;
@@ -51,5 +55,6 @@
   color: blanchedalmond;
   outline: none;
   border-style: none;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }

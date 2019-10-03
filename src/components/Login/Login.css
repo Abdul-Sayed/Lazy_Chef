@@ -2,7 +2,7 @@
 .login {
   width: 100vw;
   height: 100vh;
-  background-image: url("https://cdn.pixabay.com/photo/2015/04/28/20/24/wood-744306_1280.jpg");
+  background-image: url("https://cdn.pixabay.com/photo/2015/04/28/20/24/wood-744306_1280.jpg") !important;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -25,24 +25,26 @@
   color: blanchedalmond;
 }
 
-.login-input, .password-input {
+/* #946955 */
+
+.login-input, .login-password-input {
   width: 20vw;
   height: 100%;
   background-color: #946955;
-  box-shadow: 0 0 10px 15px #946955;
+  box-shadow: 0 0 15px 20px #946955;
   font-size: 2rem;
   font-family: "Homemade Apple", cursive;
   font-weight: bold;
   color: blanchedalmond;
   border-style: none;
-  text-indent: 1.5rem;
+  text-indent: 2rem;
   outline: none;
   border-style: none;
 }
 
 .login-button {
   background-color: #946955;
-  box-shadow: 0 4px 11px 14px #946955;
+  box-shadow: 0 4px 15px 20px #946955;
   padding: 0.5rem 1rem;
   font-size: 3rem;
   font-family: "Reenie Beanie", cursive;
@@ -50,4 +52,5 @@
   color: blanchedalmond;
   outline: none;
   border-style: none;
+  cursor: pointer;
 }

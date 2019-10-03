@@ -4,7 +4,9 @@ import "./Login.css";
 export class Login extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    loggedInUserName: "",
+    loggedInUserId: ""
   };
 
   handleChange = event => {
@@ -20,15 +22,34 @@ export class Login extends Component {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      })
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         if (data.token) {
           localStorage.token = data.token;
+          this.setState(
+            {
+              loggedInUserName: data.user.username,
+              loggedInUserId: data.user.id
+            },
+            () =>
+              this.props.loggedInUserDetails(
+                this.state.loggedInUserName,
+                this.state.loggedInUserId
+              )
+          );
           this.props.history.push("/home");
         }
       });
+  };
+
+  handleSignup = () => {
+    this.props.history.push("/signup");
   };
 
   render() {
@@ -51,7 +72,7 @@ export class Login extends Component {
             />
 
             <input
-              className="password-input"
+              className="login-password-input"
               type="password"
               placeholder="password"
               name="password"
@@ -61,6 +82,10 @@ export class Login extends Component {
             <button className="login-button" type="submit">
               Log In
             </button>
+
+            <h1 style={{ cursor: "pointer" }} onClick={this.handleSignup}>
+              Or Sign Up
+            </h1>
           </form>
         </div>
       </React.Fragment>
