@@ -4,7 +4,9 @@ import "./Signup.css";
 export class Signup extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    loggedInUserName: "",
+    loggedInUserId: ""
   };
 
   handleChange = event => {
@@ -20,12 +22,26 @@ export class Signup extends Component {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      })
     })
       .then(res => res.json())
       .then(data => {
         if (data.token) {
           localStorage.token = data.token;
+          this.setState(
+            {
+              loggedInUserName: data.user.username,
+              loggedInUserId: data.user.id
+            },
+            () =>
+              this.props.loggedInUserDetails(
+                this.state.loggedInUserName,
+                this.state.loggedInUserId
+              )
+          );
           this.props.history.push("/home");
         }
       });
@@ -35,7 +51,12 @@ export class Signup extends Component {
     return (
       <React.Fragment>
         <div className="signup">
-          <h1>Sign Up Please</h1>
+          <h1>
+            Sign Up Please or{" "}
+            <span onClick={() => this.props.history.push("/login")}>
+              Log In
+            </span>
+          </h1>
           <form
             autoComplete="off"
             onSubmit={this.handleSubmit}
@@ -51,7 +72,7 @@ export class Signup extends Component {
             />
 
             <input
-              className="password-input"
+              className="signup-password-input"
               type="password"
               placeholder="password"
               name="password"

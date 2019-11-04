@@ -12,11 +12,20 @@ body, html {
   position: relative;
 }
 
+.main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  overflow-y: scroll;
+  position: absolute;
+}
+
 header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 7rem;
+  margin-bottom: 2rem;
   background-image: url("https://cdn.pixabay.com/photo/2016/11/18/18/52/bottles-1836389_1280.jpg");
   width: 100%;
   height: 13vw;
@@ -42,14 +51,29 @@ header button {
   box-shadow: 0 0 20px 20px whitesmoke;
 }
 
-.main {
+.menu {
   width: 100%;
-  height: 100%;
-  /* margin: 2rem; */
-  display: grid;
-  justify-items: center;
-  overflow-y: scroll;
-  position: absolute;
+  display: flex;
+  justify-content: space-around;
+}
+
+.greeting {
+  font-family: "Rock Salt", cursive;
+  font-size: 2rem;
+  color: sienna;
+  display: inline;
+}
+
+.favorites-link {
+  font-family: "Rock Salt", cursive;
+  font-size: 2rem;
+  color: sienna;
+  cursor: pointer;
+  transition: letter-spacing 0.25s ease-in-out;
+}
+
+.favorites-link:hover {
+  letter-spacing: 5px;
 }
 
 /* Ingredient Search Style */
@@ -60,6 +84,7 @@ header button {
 
 form {
   text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .ingredient-search {
@@ -96,7 +121,7 @@ form {
 /* Ingredient Button Styles */
 
 .ingredient-box {
-  margin: 1rem;
+  margin: 1.5rem auto;
   border: 3px dotted BURLYWOOD;
   padding: 8px 8px 8px 8px;
   background-color: CORNSILK;
@@ -224,7 +249,7 @@ form {
   text-align: center;
 }
 
-.recipe-results img {
+.recipe-results .recipe-results-img {
   margin: 0 auto;
   cursor: pointer;
   border-radius: 50%;
@@ -233,6 +258,17 @@ form {
   border: 2rem solid BurlyWood;
   border-radius: 50%;
   box-shadow: 0 0 0 10px bisque, 0 0 0 15px beige;
+}
+
+.recipe-results .recipe-results-img-favorite {
+  display: block;
+  margin: 2rem auto 0 auto;
+}
+
+.recipe-results .recipe-results-img-favorite:hover {
+  border: 1px double chocolate;
+  border-radius: 50%;
+  transition: 0.2s;
 }
 
 /* SideBar Styling */

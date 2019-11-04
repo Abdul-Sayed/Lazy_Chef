@@ -6,10 +6,11 @@ class Home extends Component {
   state = {
     apiKey0: "3e8c96b394444c7cae9f0e5f7ac46b55",
     apiKey: "90e43a593f254fa8b5e96153f5473dfc",
+    username: "",
     ingredient: "",
     ingredientList: [],
     apiReturnedRecipes: [],
-    apiUsableRecipes: "",
+    apiFormattedReturnedRecipes: "",
     isMissingIngredients: false,
     isMissingInstructions: false,
     apiAllIngredients: [],
@@ -21,6 +22,20 @@ class Home extends Component {
     recipeSteps: []
   };
 
+  componentDidMount() {
+    if (localStorage.token) {
+      fetch("http://localhost:3000/user", {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => console.log(data));
+    } else {
+      this.props.history.push("/login");
+    }
+  }
+
   handleLogout = () => {
     localStorage.clear();
     this.props.history.push("/login");
@@ -30,24 +45,33 @@ class Home extends Component {
   // It populates state.ingredient with a value from the controlled form input
   handleIngredientInputChange = event => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value
-        .toLowerCase()
-        .trim()
-        .replace(/ [^a-zA-Z]/g, "")
-    });
+    this.setState({ [name]: value });
   };
 
   // This fires upon user pressing 'Add' button on input bar
   // It adds state.ingredient to state.ingredientList, and resets state.ingredient to ""
+  // Upon completing those steps, it maps through state.ingredientList and for each ingredient, it removes all extra spaces between words, special characters, and all spaces before and after words
   handleIngredientSubmit = event => {
     event.preventDefault();
-    this.setState({
-      ingredientList: [
-        ...new Set([...this.state.ingredientList, this.state.ingredient])
-      ],
-      ingredient: ""
-    });
+    this.setState(
+      {
+        ingredientList: [
+          ...new Set([...this.state.ingredientList, this.state.ingredient])
+        ],
+        ingredient: ""
+      },
+      () =>
+        this.setState({
+          ingredientList: this.state.ingredientList.map(ingredient =>
+            ingredient
+              .replace(/ +/g, " ")
+              .replace(/[&\/\\#!,+()|@^`_\$=;~%.'":*?<>{-}]/g, "")
+              .replace(/-/g, "")
+              .replace(/[\[\]']+/g, "")
+              .trim()
+          )
+        })
+    );
   };
 
   // Render each ingredient in state.ingredientList as a div styled as a button
@@ -78,14 +102,11 @@ class Home extends Component {
 
   // Fired when the Add button is clicked
   // This formats the ingredients in state.ingredientList into a string for an API query
-  // The API will return with recipes data which is stored in state.apiReturnedRecipes
-  // The array of recipes in state.apiReturnedRecipes are formatted into divs (depending on whether the entered ingredients are a subset of state.ingredientList) and saved to state.apiUsableRecipes
-  // Clicking on the images will fire getRecipeDetails(), passing in the id if the recipe
+  // The API will return with recipes data which is (sorted by # missedIngredients &) stored in state.apiReturnedRecipes
+  // The array of recipes in state.apiReturnedRecipes are formatted into divs (depending on whether missedIngredientCount === 0) and saved to state.apiFormattedReturnedRecipes. If ingredients are missing, needToGoShopping() is fired and state.isMissingIngredients is set to true.
+  // Clicking on the images will fire getRecipeDetails(), passing in the id of the recipe
+  // Clicking on the Favorite Recipe button will fire favoriteRecipe()
   findRecipe = event => {
-    let needToGoShopping = () => {
-      this.setState({ isMissingIngredients: true });
-    };
-
     event.preventDefault();
     let ingredientsString = "";
     this.state.ingredientList.map(
@@ -111,39 +132,117 @@ class Home extends Component {
           this.state.apiReturnedRecipes
         );
 
-        // const apiDetails = apiData.map(data =>
-        const apiUsableRecipes = this.state.apiReturnedRecipes.map(data =>
-          data.missedIngredientCount === 0 ? (
-            <div
-              className="recipe-results"
-              key={uuid.v4()}
-              onClick={() => this.getRecipeDetails(data.id)}
-            >
-              <h1>{data.title}</h1>
-              <img src={data.image} alt={data.title} height="231" width="312" />
-            </div>
-          ) : (
-            <div
-              className="recipe-results"
-              key={uuid.v4()}
-              onClick={() => this.getRecipeDetails(data.id)}
-            >
-              <h1>{data.title}</h1>
-              <h2>Missing Ingredients : {data.missedIngredientCount}</h2>
-              {this.state.isMissingInstructions && (
-                <h2>Missing Instructions</h2>
-              )}
-              <img src={data.image} alt={data.title} height="231" width="312" />
-              {needToGoShopping()}
-            </div>
-          )
+        const apiFormattedReturnedRecipes = this.state.apiReturnedRecipes.map(
+          data =>
+            data.missedIngredientCount === 0 ? (
+              <div
+                className="recipe-results"
+                key={uuid.v4()}
+                onClick={() => this.getRecipeDetails(data.id)}
+              >
+                <h1>{data.title}</h1>
+                <img
+                  className="recipe-results-img"
+                  src={data.image}
+                  alt={data.title}
+                  height="231"
+                  width="312"
+                />
+                <img
+                  className="recipe-results-img-favorite"
+                  onClick={event => this.favoriteRecipe(event, data)}
+                  src="https://i.ibb.co/YcLQTDJ/favorite-button.png"
+                  alt="Favorite"
+                  height="200"
+                  width="200"
+                />
+              </div>
+            ) : (
+              <div
+                className="recipe-results"
+                key={uuid.v4()}
+                onClick={() => this.getRecipeDetails(data.id)}
+              >
+                <h1>{data.title}</h1>
+                {this.state.apiMissedIngredients.length > 0 ? (
+                  <h2>
+                    Missing Ingredients :{" "}
+                    {this.state.apiMissedIngredients.length}
+                  </h2>
+                ) : (
+                  <h2>Missing Ingredients : {data.missedIngredientCount}</h2>
+                )}
+                {this.state.isMissingInstructions && (
+                  <h2>
+                    Missing Instructions{" "}
+                    <span role="img" aria-label="Sad Emoji">
+                      😓
+                    </span>
+                  </h2>
+                )}
+                <img
+                  className="recipe-results-img"
+                  src={data.image}
+                  alt={data.title}
+                  height="231"
+                  width="312"
+                />
+                <img
+                  className="recipe-results-img-favorite"
+                  onClick={event => this.favoriteRecipe(event, data)}
+                  src="https://i.ibb.co/YcLQTDJ/favorite-button.png"
+                  alt="Favorite"
+                  height="200"
+                  width="200"
+                />
+                {needToGoShopping()}
+              </div>
+            )
         );
-        this.setState({ apiUsableRecipes: apiUsableRecipes });
+        this.setState({
+          apiFormattedReturnedRecipes: apiFormattedReturnedRecipes
+        });
       })
       .catch(err => console.error(err));
+
+    let needToGoShopping = () => {
+      this.setState({ isMissingIngredients: true });
+    };
   };
 
-  // Fired by clicking an image from the usable recipes already rendered
+  // Fired upon user clicking the 'SAVE' images on the apiFormattedReturnedRecipes divs
+
+  favoriteRecipe = (event, recipeData) => {
+    event.stopPropagation();
+    console.log("Favorited Recipe: ", recipeData);
+    alert(`Saved ${recipeData.title}`);
+    console.log("props in App.js: ", this.props);
+    // this.props.addRecipe(recipeData);
+
+    fetch("http://localhost:3000/saved_recipes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        user_id: this.props.userId,
+        title: recipeData.title,
+        image: recipeData.image,
+        recipe_api_id: recipeData.id,
+        missing_ingredient_count: recipeData.missedIngredientCount
+      })
+    })
+      .then(response => response.json())
+      .then(parsedResponse => {
+        console.log("Posted the Saved recipe: ", parsedResponse);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  };
+
+  // Fired by clicking a div from the rendered usable recipes
   // It fetches specific recipe data and instructions for that recipe
   // It creates a div with the useful recipe information and sets that to state.recipeDetails
   // It sets the returned recipe's instruction steps into state.recipeSteps
@@ -242,6 +341,7 @@ class Home extends Component {
   };
 
   render() {
+    console.log("props.username: ", this.props.username);
     return (
       <React.Fragment>
         <main className="main">
@@ -249,13 +349,28 @@ class Home extends Component {
             <button onClick={this.handleLogout}>Log Out</button>
           </header>
 
+          <div className="menu">
+            <h1 className="greeting">Welcome {this.props.username}</h1>
+
+            {/* <h1 onClick={() => this.props.history.push("/favorite")}>
+              <span className="favorites-link">See Saved Recipes</span>
+            </h1> */}
+
+            <h1
+              className="favorites-link"
+              onClick={() => this.props.history.push("/favorite")}
+            >
+              See Saved Recipes
+            </h1>
+          </div>
+
           <section className="ingredients">
             <form autoComplete="off" onSubmit={this.handleIngredientSubmit}>
               <input
                 autoComplete="off"
                 className="ingredient-search"
                 type="text"
-                placeholder="Enter ingredient ..."
+                placeholder="Enter an ingredient ..."
                 name="ingredient"
                 value={this.state.ingredient}
                 onChange={this.handleIngredientInputChange}
@@ -277,7 +392,7 @@ class Home extends Component {
                 Sorry, You gotta put on some pants n go out shopping!
               </h1>
             ) : null} */}
-            {this.state.apiUsableRecipes}
+            {this.state.apiFormattedReturnedRecipes}
           </section>
         </main>
 
