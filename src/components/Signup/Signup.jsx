@@ -54,7 +54,7 @@ export class Signup extends Component {
           <h1>
             Sign Up Please or{" "}
             <span onClick={() => this.props.history.push("/login")}>
-              Go Back
+              Log In
             </span>
           </h1>
           <form

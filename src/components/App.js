@@ -73,6 +73,12 @@ class App extends Component {
       <Switch>
 
         <Route
+          exact path={'/'}
+          render={routerProps =>
+            <Login {...routerProps} loggedInUserDetails={this.setUserDetails} />
+          } />
+
+        <Route
           exact path={'/home'}
           render={routerProps =>
             // <Home {...routerProps} addRecipe={this.addRecipe} username={this.state.username} userId={this.state.userId} />

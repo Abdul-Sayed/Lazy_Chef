@@ -350,7 +350,7 @@ class Home extends Component {
           </header>
 
           <div className="menu">
-            <h1 className="greeting">Welcome back {this.props.username}</h1>
+            <h1 className="greeting">Welcome {this.props.username}</h1>
 
             {/* <h1 onClick={() => this.props.history.push("/favorite")}>
               <span className="favorites-link">See Saved Recipes</span>
