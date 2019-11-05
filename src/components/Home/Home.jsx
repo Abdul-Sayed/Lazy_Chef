@@ -65,9 +65,7 @@ class Home extends Component {
           ingredientList: this.state.ingredientList.map(ingredient =>
             ingredient
               .replace(/ +/g, " ")
-              .replace(/[&\/\\#!,+()|@^`_\$=;~%.'":*?<>{-}]/g, "")
-              .replace(/-/g, "")
-              .replace(/[\[\]']+/g, "")
+              .replace(/[&\\/#!,+()|@^`_$=;~%.'":*?<>{}[\-[\]']+/g, "")
               .trim()
           )
         })
@@ -380,7 +378,11 @@ class Home extends Component {
             {this.state.ingredientList.length > 0 && (
               <div className="ingredient-box">
                 {this.renderIngredient()}
-                <a className="search" onClick={event => this.findRecipe(event)}>
+                <a
+                  href="/#"
+                  className="search"
+                  onClick={event => this.findRecipe(event)}
+                >
                   Find Recipes
                 </a>
               </div>

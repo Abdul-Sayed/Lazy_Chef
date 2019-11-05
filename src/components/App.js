@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import Login from './Login/Login';
 import SignUp from './Signup/Signup';
 import Favorite from './Favorite/Favorite'
