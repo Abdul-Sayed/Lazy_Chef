@@ -4,8 +4,8 @@ import "./Home.css";
 
 class Home extends Component {
   state = {
-    apiKey0: "3e8c96b394444c7cae9f0e5f7ac46b55",
-    apiKey: "90e43a593f254fa8b5e96153f5473dfc",
+    apiKey0: process.env.REACT_APP_SPOONACULAR1_API_KEY,
+    apiKey: process.env.REACT_APP_SPOONACULAR2_API_KEY,
     username: "",
     ingredient: "",
     ingredientList: [],
@@ -24,7 +24,8 @@ class Home extends Component {
 
   componentDidMount() {
     if (localStorage.token) {
-      fetch("http://localhost:3000/user", {
+      // fetch("http://localhost:3000/user", {
+      fetch("https://lazy-chef-api.herokuapp.com/user", {
         headers: {
           Authorization: `Bearer ${localStorage.token}`
         }
@@ -217,7 +218,8 @@ class Home extends Component {
     console.log("props in App.js: ", this.props);
     // this.props.addRecipe(recipeData);
 
-    fetch("http://localhost:3000/saved_recipes", {
+    // fetch("http://localhost:3000/saved_recipes", {
+    fetch("https://lazy-chef-api.herokuapp.com/saved_recipes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

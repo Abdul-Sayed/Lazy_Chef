@@ -4,8 +4,8 @@ import "./Favorite.css";
 
 class Favorite extends Component {
   state = {
-    apiKey0: "3e8c96b394444c7cae9f0e5f7ac46b55",
-    apiKey: "90e43a593f254fa8b5e96153f5473dfc",
+    apiKey0: process.env.REACT_APP_SPOONACULAR1_API_KEY,
+    apiKey: process.env.REACT_APP_SPOONACULAR2_API_KEY,
     username: "",
     ingredient: "",
     ingredientList: [],
@@ -29,7 +29,8 @@ class Favorite extends Component {
 
   componentDidMount() {
     if (localStorage.token) {
-      fetch("http://localhost:3000/user", {
+      // fetch("http://localhost:3000/user", {
+      fetch("https://lazy-chef-api.herokuapp.com/user", {
         headers: {
           Authorization: `Bearer ${localStorage.token}`
         }
@@ -45,8 +46,8 @@ class Favorite extends Component {
   }
 
   fetchSavedRecipes = () => {
-    // fetch("http://localhost:3000/saved_recipes")
-    fetch("http://localhost:3000/user/saved_recipes", {
+    // fetch("http://localhost:3000/user/saved_recipes", {
+    fetch("https://lazy-chef-api.herokuapp.com/user/saved_recipes", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.token}`,
@@ -99,13 +100,6 @@ class Favorite extends Component {
             onClick={() => this.getRecipeDetails(data.recipe_api_id)}
           >
             <h1>{data.title}</h1>
-            {this.state.apiMissedIngredients.length > 0 ? (
-              <h2>
-                Missing Ingredients : {this.state.apiMissedIngredients.length}
-              </h2>
-            ) : (
-              <h2>Missing Ingredients : {data.missing_ingredient_count}</h2>
-            )}
             {this.state.isMissingInstructions && (
               <h2>
                 Missing Instructions{" "}
@@ -217,8 +211,6 @@ class Favorite extends Component {
       let missingIngredients = this.state.apiAllIngredients.filter(
         o => matchingArray.indexOf(o) === -1
       );
-
-      console.log("missingIngredients: ", missingIngredients);
       return this.setState({ apiMissedIngredients: missingIngredients });
     });
   };
@@ -272,16 +264,6 @@ class Favorite extends Component {
                 {ingredient}
               </button>
             ))}
-            {/* {this.state.apiMissedIngredients.map(ingredient => (
-              <button
-                type="text"
-                disabled
-                className="missing-ingredient"
-                key={uuid.v4()}
-              >
-                {ingredient}
-              </button>
-            ))} */}
           </div>
 
           {this.state.recipeSteps.length > 0 ? (

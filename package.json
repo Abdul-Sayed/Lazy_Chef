@@ -31,5 +31,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "surge": "latest",
+    "git-scripts": "latest"
+  },
+  "git": {
+    "scripts": {
+      "pre-push": "gatsby build && surge --project ./public --domain Lazy-Chef.surge.sh"
+    }
   }
 }

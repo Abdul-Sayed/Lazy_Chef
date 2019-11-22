@@ -16,7 +16,8 @@ export class Signup extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    fetch("http://localhost:3000/signup", {
+    // fetch("http://localhost:3000/signup", {
+    fetch("https://lazy-chef-api.herokuapp.com/signup", {
       method: "POST",
       headers: {
         Accept: "application/json",
