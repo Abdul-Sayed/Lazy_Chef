@@ -1,4 +1,4 @@
-# Project Title
+# Lazy_Chef
 
 Too lazy to go to the store? Don't have a car? Live in Alaska? Find what you can cook using ingredients you have at hand. Lazy_Chef lets you know what's possible with what you already have in the fridge or pantry.
 
