@@ -22,7 +22,7 @@ RoR (React as the front and Rails on the back).
 
 Uses react-router and props drilling amongst stateful components. Consumes a 3rd party recipe API provided by [Spoonacular](https://spoonacular.com/). All custom CSS as no UI framework could achieve its unique look.
 
-The CRUD app integrates with a backend RESTful API built with Rails. Features Authentication/Authorization together with the browser using JSON Web Tokens. Repo can be found here: [lazy_Chef_API](https://github.com/Abdul-Sayed/lazy_Chef_API)
+The CRUD app integrates with a backend RESTful API built with Rails. Features Authentication/Authorization together with the browser using JSON Web Tokens. Backend repo can be found here: [lazy_Chef_API](https://github.com/Abdul-Sayed/lazy_Chef_API)
 
 ### Getting Started
 
